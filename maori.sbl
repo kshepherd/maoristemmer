@@ -73,7 +73,7 @@ backwardmode (
             'tia' 'hia' 'ngia' 'kia' 'mia' 'ria' 'whia' 'wh{a_}ia' 'ia'
             'ina' 'whina' 'kina'
             'nga' 'na' 'a'
-            (RV delete)
+            (RV test v delete)
         )
     )
 
