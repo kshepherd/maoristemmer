@@ -1,4 +1,5 @@
 routines (
+    normalise_diaereses
     R1 R2 RV
     mark_regions
     verb_sfx
@@ -12,7 +13,7 @@ groupings ( v )
 
 stringescapes {}
 
-/* special characters (long vowels using diacritics) */
+/* special characters (long vowels using macrons or diaereses) */
 
 stringdef a_    '{U+0101}'  // a-macron
 stringdef e_    '{U+0113}'  // e-macron
@@ -27,7 +28,22 @@ stringdef u"    '{U+00FC}'  // u-diaeresis
 
 /* define vowels */
 
-define v 'aeiou{a_}{e_}{i_}{o_}{u_}{a"}{e"}{i"}{o"}{u"}'
+define v 'aeiou{a_}{e_}{i_}{o_}{u_}'
+
+/* normalise diaereses to macrons */
+
+define normalise_diaereses as (
+    repeat (
+        [substring] among (
+            '{a"}' (<- '{a_}')
+            '{e"}' (<- '{e_}')
+            '{i"}' (<- '{i_}')
+            '{o"}' (<- '{o_}')
+            '{u"}' (<- '{u_}')
+            '' (next)
+        )
+    )
+)
 
 define mark_regions as (
 
@@ -54,7 +70,7 @@ backwardmode (
 
     define verb_sfx as (
         [substring] among (
-            'tia' 'hia' 'ngia' 'kia' 'mia' 'ria' 'whia' 'wh{a_}ia' 'wh{a"}ia' 'ia'
+            'tia' 'hia' 'ngia' 'kia' 'mia' 'ria' 'whia' 'wh{a_}ia' 'ia'
             'ina' 'whina' 'kina'
             'nga' 'na' 'a'
             (RV delete)
@@ -64,6 +80,7 @@ backwardmode (
 )
 
 define stem as (
+    do normalise_diaereses
     do mark_regions
     backwards (
         do verb_sfx
