@@ -1,0 +1,40 @@
+[% header('Māori stemming algorithm') %]
+
+<h2>Links to resources</h2>
+
+<ul>
+[% algorithm_lis('maori', 'Māori') %]
+</ul>
+
+[% algorithm_vocab([30, 'ahiahi', 'whakapaingia']) %]
+
+<h2>The stemming algorithm</h2>
+
+<p>
+Letters in Māori include the following accented forms:
+</p>
+
+<DL><DD>
+    <B><I>ā  &nbsp;  ē &nbsp;  ī  &nbsp;  ō  &nbsp;  ū</I></B>
+</DL>
+
+<p>First, replace all diaecreses with macrons (diaereses were historically
+used to indicate long vowels before Unicode support was widespread).</p>
+
+<p>
+The vowels are then
+</p>
+
+<DL><DD>
+    <B><I>a  &nbsp;  e  &nbsp;  i  &nbsp;  o  &nbsp;  u  &nbsp  ā  &nbsp;  ē &nbsp;  ī  &nbsp;  ō  &nbsp;  ū</I></B>
+</DL>
+
+<p>
+The algorithm removes suffixes for part of speech that are commonly used
+in passive verb construction ("-tia", "-ngia", "-kia", "-mia", "-ria"
+, "-whia", "-whāia", "-ia", "-ina", "-whina", "-kina", "-nga", "-na"
+, "-a").</p>
+
+[% highlight_file('maori') %]
+
+[% footer %]
